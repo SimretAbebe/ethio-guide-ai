@@ -116,7 +116,7 @@ export default function MapPage() {
               {selectedSite ? (
                 <div>
                   <div className="flex items-center mb-4">
-                    <span className="text-3xl mr-3">📍</span>
+                    <span className="text-3xl mr-3"></span>
                     <h2 className="text-2xl font-bold text-gray-800">
                       {selectedSite.name}
                     </h2>

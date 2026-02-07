@@ -20,3 +20,17 @@ The platform helps users discover historical sites, cultural places, and festiva
 - AI: OpenAI / HuggingFace
 - Maps: Leaflet.js
 
+## Testing
+
+The backend includes unit tests for API endpoints and models.
+
+### Run Backend Tests
+
+```bash
+cd backend
+pip install -r requirements.txt
+pytest
+```
+
+See `backend/tests/README.md` for more details.
+

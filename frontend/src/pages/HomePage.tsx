@@ -112,7 +112,7 @@ export default function HomePage() {
               <CulturalSiteCard
                 key={`${site.name}-${index}`}
                 title={site.name}
-                image={`https://images.unsplash.com/800x600/?${encodeURIComponent(site.name + ' ' + site.category)}`}
+                image={`https://source.unsplash.com/800x600/?${encodeURIComponent(site.name + ' ' + site.category)}`}
                 description={site.description}
                 location={site.location}
               />
