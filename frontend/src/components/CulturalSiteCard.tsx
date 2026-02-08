@@ -67,7 +67,7 @@ export default function CulturalSiteCard({
               disabled={isFavoriting}
               className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isFavoriting ? "Adding..." : "❤️ Favorite"}
+              {isFavoriting ? "Adding..." : "Favorite"}
             </button>
             <button className="flex-1 bg-gradient-to-r from-green-600 to-yellow-500 text-white py-2 px-4 rounded-lg font-semibold hover:from-green-700 hover:to-yellow-600 transition-all duration-200">
               Learn More
