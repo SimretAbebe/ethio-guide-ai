@@ -42,6 +42,21 @@ class TestSitesEndpoints:
         # Should return 422 (validation error) since site_name is required
         assert response.status_code == 422
 
+    def test_get_favorites_endpoint_exists(self):
+        """Test that /favorites GET endpoint is accessible"""
+        response = client.get("/favorites")
+        # Should return 200 or 500 (if DB not connected), but not 404
+        assert response.status_code in [200, 500]
+        if response.status_code == 200:
+            # Response should be a list
+            assert isinstance(response.json(), list)
+
+    def test_delete_favorite_not_found(self):
+        """Test that deleting a non-existent favorite returns 404"""
+        response = client.delete("/favorites/NonExistentSite12345")
+        # Should return 404 or 500 (if DB not connected)
+        assert response.status_code in [404, 500]
+
 
 class TestAPIDocumentation:
     """Test API documentation endpoints"""

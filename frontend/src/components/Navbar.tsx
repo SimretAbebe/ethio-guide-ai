@@ -15,6 +15,7 @@ export default function Navbar() {
     { label: "Home", path: "/" },
     { label: "Explore", path: "/explore" },
     { label: "Map", path: "/map" },
+    { label: "Favorites", path: "/favorites" },
   ];
 
   const isActive = (path: string) => location.pathname === path;

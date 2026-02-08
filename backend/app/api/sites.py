@@ -54,6 +54,35 @@ async def get_site_by_name(site_name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch site: {str(e)}")
 
+@router.get("/favorites", response_model=List[Dict[str, Any]])
+async def get_all_favorites():
+    """
+    Get all favorite sites with their full details
+    Returns list of favorite sites with complete information
+    """
+    try:
+        db = get_database()
+        favorites_collection = db["favorites"]
+        sites_collection = db["cultural_sites"]
+
+        # Get all favorites
+        favorites = list(favorites_collection.find({}, {"_id": 0}))
+
+        # Enrich with full site details
+        enriched_favorites = []
+        for fav in favorites:
+            site = sites_collection.find_one(
+                {"name": {"$regex": f"^{fav['site_name']}$", "$options": "i"}},
+                {"_id": 0}
+            )
+            if site:
+                enriched_favorites.append(site)
+
+        return enriched_favorites
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch favorites: {str(e)}")
+
 @router.post("/favorites", response_model=Dict[str, str])
 async def add_to_favorites(request: FavoriteRequest):
     """
@@ -99,3 +128,28 @@ async def add_to_favorites(request: FavoriteRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to add to favorites: {str(e)}")
+
+@router.delete("/favorites/{site_name}", response_model=Dict[str, str])
+async def remove_from_favorites(site_name: str):
+    """
+    Remove a cultural site from favorites collection
+    Returns confirmation message or 404 if not found
+    """
+    try:
+        db = get_database()
+        favorites_collection = db["favorites"]
+
+        # Find and delete the favorite
+        result = favorites_collection.delete_one(
+            {"site_name": {"$regex": f"^{site_name}$", "$options": "i"}}
+        )
+
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Site not found in favorites")
+
+        return {"message": f"'{site_name}' has been removed from your favorites"}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to remove from favorites: {str(e)}")
