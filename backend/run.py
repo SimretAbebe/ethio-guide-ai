@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-"""
-Run script for EthioGuide API
-"""
 import uvicorn
 from app.main import app
 
