@@ -21,7 +21,7 @@ export default function CulturalSiteCard({
   const handleAddToFavorites = async () => {
     try {
       setIsFavoriting(true);
-      const response = await fetch("http://127.0.0.1:8000/favorites", {
+      const response = await fetch("http://127.0.0.1:8001/favorites", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,3 +78,4 @@ export default function CulturalSiteCard({
     </div>
   );
 }
+

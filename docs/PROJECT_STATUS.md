@@ -1,6 +1,6 @@
 # EthioGuide Project Status
 
-Last Updated: February 8, 2026
+Last Updated: February 9, 2026
 
 ## ✅ Completed Features
 
@@ -12,13 +12,13 @@ Last Updated: February 8, 2026
 - RESTful API endpoints:
   - `GET /` - Root endpoint
   - `GET /health` - Health check
-  - `GET /sites` - Get all cultural sites
+  - `GET /sites` - Get all cultural sites **with search/filter support** (query params: search, category, region)
   - `GET /sites/{site_name}` - Get specific site by name
-  - `GET /favorites` - **NEW**: Get all favorite sites
+  - `GET /favorites` - Get all favorite sites
   - `POST /favorites` - Add site to favorites
-  - `DELETE /favorites/{site_name}` - **NEW**: Remove site from favorites
+  - `DELETE /favorites/{site_name}` - Remove site from favorites
 - Sample data insertion script
-- **Unit tests** (13 tests - API and model tests with pytest)
+- **Unit tests** (17 tests - API and model tests with pytest)
 
 ### Frontend
 - React + TypeScript + Vite setup
@@ -29,13 +29,15 @@ Last Updated: February 8, 2026
   - `Hero` - Hero section
   - `CulturalSiteCard` - Site display card **with Add to Favorites button**
   - `EthiopiaMap` - Map component with Leaflet.js and markers
+  - `SearchBar` - **NEW**: Search and filter component with text search, category, and region filters
 - Pages:
   - `Home` - Landing page
-  - `HomePage` - Explore cultural sites
+  - `HomePage` - Explore cultural sites **with search/filter functionality**
   - `MapPage` - Interactive map view with site markers and details panel
-  - `FavoritesPage` - **NEW**: View and manage favorite sites
-- API integration with backend
+  - `FavoritesPage` - View and manage favorite sites
+- API integration with backend (port 8001)
 - **Complete favorites system** (view, add, remove)
+- **Search & Filter system** (search by text, filter by category/region)
 
 ### Infrastructure
 - Git repository initialized
@@ -65,10 +67,8 @@ None - all core features are either complete or not started.
    - Zoom to selected site
 
 ### Medium Priority
-4. **Search & Filter**
-   - Search bar component
-   - Filter by category, region, etc.
-   - Sort functionality
+4. **Sort Functionality**
+   - Sort sites by name, date, popularity
 
 5. **User Authentication**
    - User registration/login
@@ -98,7 +98,7 @@ None - all core features are either complete or not started.
 ## 📊 Test Coverage
 
 ### Backend
-- ✅ API endpoints (9 tests - including favorites GET and DELETE)
+- ✅ API endpoints (13 tests - including favorites and search/filter)
 - ✅ Data models (4 tests)
 - ❌ Database operations (not tested)
 - ❌ AI services (not implemented)
@@ -143,7 +143,17 @@ None - all core features are either complete or not started.
 - typescript@5.5.3
 - vite@5.4.2
 
-## 🎉 Recent Updates (Feb 8, 2026)
+## 🎉 Recent Updates
+
+### February 9, 2026
+- ✅ Added search/filter functionality to backend API (query params: search, category, region)
+- ✅ Created SearchBar component with text search and dropdowns
+- ✅ Integrated search bar into HomePage
+- ✅ Updated all frontend API URLs to use port 8001
+- ✅ Added 4 new tests for search/filter endpoints (total: 17 tests)
+- ✅ All tests passing successfully
+
+### February 8, 2026
 
 ### Completed
 - ✅ Added `GET /favorites` endpoint to retrieve all favorite sites

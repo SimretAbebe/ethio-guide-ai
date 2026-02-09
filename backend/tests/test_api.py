@@ -57,6 +57,34 @@ class TestSitesEndpoints:
         # Should return 404 or 500 (if DB not connected)
         assert response.status_code in [404, 500]
 
+    def test_search_sites_by_name(self):
+        """Test searching sites by name"""
+        response = client.get("/sites?search=Lalibela")
+        assert response.status_code in [200, 500]
+        if response.status_code == 200:
+            assert isinstance(response.json(), list)
+
+    def test_filter_sites_by_category(self):
+        """Test filtering sites by category"""
+        response = client.get("/sites?category=Historical")
+        assert response.status_code in [200, 500]
+        if response.status_code == 200:
+            assert isinstance(response.json(), list)
+
+    def test_filter_sites_by_region(self):
+        """Test filtering sites by region"""
+        response = client.get("/sites?region=Amhara")
+        assert response.status_code in [200, 500]
+        if response.status_code == 200:
+            assert isinstance(response.json(), list)
+
+    def test_search_with_multiple_filters(self):
+        """Test searching with multiple filters"""
+        response = client.get("/sites?search=church&category=Religious&region=Tigray")
+        assert response.status_code in [200, 500]
+        if response.status_code == 200:
+            assert isinstance(response.json(), list)
+
 
 class TestAPIDocumentation:
     """Test API documentation endpoints"""

@@ -28,7 +28,7 @@ export default function MapPage() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch("http://127.0.0.1:8000/sites");
+        const response = await fetch("http://127.0.0.1:8001/sites");
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -232,3 +232,4 @@ export default function MapPage() {
     </div>
   );
 }
+

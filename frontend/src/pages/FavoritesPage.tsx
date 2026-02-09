@@ -26,7 +26,7 @@ export default function FavoritesPage() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("http://127.0.0.1:8000/favorites");
+      const response = await fetch("http://127.0.0.1:8001/favorites");
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -49,7 +49,7 @@ export default function FavoritesPage() {
   const handleRemoveFavorite = async (siteName: string) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/favorites/${encodeURIComponent(siteName)}`,
+        `http://127.0.0.1:8001/favorites/${encodeURIComponent(siteName)}`,
         {
           method: "DELETE",
         }
@@ -179,3 +179,4 @@ export default function FavoritesPage() {
     </div>
   );
 }
+

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import CulturalSiteCard from "../components/CulturalSiteCard";
+import SearchBar from "../components/SearchBar";
 
 interface CulturalSite {
   name: string;
@@ -21,30 +22,41 @@ export default function HomePage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchSites = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  const fetchSites = async (search = "", category = "", region = "") => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        const response = await fetch("http://127.0.0.1:8000/sites");
+      // Build query parameters
+      const params = new URLSearchParams();
+      if (search) params.append("search", search);
+      if (category) params.append("category", category);
+      if (region) params.append("region", region);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+      const url = `http://127.0.0.1:8001/sites${params.toString() ? `?${params.toString()}` : ""}`;
+      const response = await fetch(url);
 
-        const data: CulturalSite[] = await response.json();
-        setSites(data);
-      } catch (err) {
-        console.error("Error fetching cultural sites:", err);
-        setError(err instanceof Error ? err.message : "Failed to fetch cultural sites");
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
+      const data: CulturalSite[] = await response.json();
+      setSites(data);
+    } catch (err) {
+      console.error("Error fetching cultural sites:", err);
+      setError(err instanceof Error ? err.message : "Failed to fetch cultural sites");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchSites();
   }, []);
+
+  const handleSearch = (search: string, category: string, region: string) => {
+    fetchSites(search, category, region);
+  };
 
   if (loading) {
     return (
@@ -102,6 +114,9 @@ export default function HomePage() {
           </p>
         </div>
 
+        {/* Search Bar */}
+        <SearchBar onSearch={handleSearch} />
+
         {sites.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-gray-600 text-lg">No cultural sites found.</p>
@@ -132,3 +147,4 @@ export default function HomePage() {
     </div>
   );
 }
+

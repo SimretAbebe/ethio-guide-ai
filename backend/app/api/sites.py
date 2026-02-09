@@ -10,17 +10,41 @@ class FavoriteRequest(BaseModel):
 router = APIRouter()
 
 @router.get("/sites", response_model=List[CulturalSite])
-async def get_all_sites():
+async def get_all_sites(
+    search: str = None,
+    category: str = None,
+    region: str = None
+):
     """
-    Get all cultural sites from MongoDB
-    Excludes _id field from response
+    Get all cultural sites from MongoDB with optional filtering
+    Query params:
+    - search: Search in name, description, location (case-insensitive)
+    - category: Filter by category
+    - region: Filter by region
     """
     try:
         db = get_database()
         sites_collection = db["cultural_sites"]
 
-        # Get all sites, exclude _id
-        sites = list(sites_collection.find({}, {"_id": 0}))
+        # Build query filter
+        query_filter = {}
+        
+        if search:
+            # Search in multiple fields
+            query_filter["$or"] = [
+                {"name": {"$regex": search, "$options": "i"}},
+                {"description": {"$regex": search, "$options": "i"}},
+                {"location": {"$regex": search, "$options": "i"}}
+            ]
+        
+        if category:
+            query_filter["category"] = {"$regex": f"^{category}$", "$options": "i"}
+        
+        if region:
+            query_filter["region"] = {"$regex": f"^{region}$", "$options": "i"}
+
+        # Get sites with filter, exclude _id
+        sites = list(sites_collection.find(query_filter, {"_id": 0}))
 
         return sites
 
