@@ -78,7 +78,7 @@ export default function EthiopiaMap({ sites, onSiteSelect }: EthiopiaMapProps) {
             <Popup>
               <div className="max-w-xs">
                 <h3 className="font-bold text-lg text-green-700">{site.name}</h3>
-                <p className="text-sm text-gray-600 mb-1">📍 {site.location}</p>
+                <p className="text-sm text-gray-600 mb-1">{site.location}</p>
                 <p className="text-sm text-gray-500 mb-2">{site.category}</p>
                 <p className="text-sm line-clamp-3">{site.description}</p>
               </div>
