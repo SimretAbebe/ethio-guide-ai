@@ -10,6 +10,7 @@ interface CulturalSite {
   historical_significance?: string;
   visiting_hours?: string;
   entry_fee?: number;
+  images?: string[];
   coordinates?: {
     latitude: number;
     longitude: number;

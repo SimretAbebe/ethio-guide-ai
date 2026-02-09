@@ -10,6 +10,7 @@ interface CulturalSite {
   historical_significance?: string;
   visiting_hours?: string;
   entry_fee?: number;
+  images?: string[];
   coordinates?: {
     latitude: number;
     longitude: number;
@@ -148,7 +149,11 @@ export default function FavoritesPage() {
                 <div key={site.name} className="relative">
                   <CulturalSiteCard
                     title={site.name}
-                    image={`https://source.unsplash.com/800x600/?${encodeURIComponent(site.name + " " + site.category)}`}
+                    image={
+                      site.images && site.images.length > 0
+                        ? site.images[0]
+                        : `https://source.unsplash.com/800x600/?${encodeURIComponent(site.name + " " + site.category)}`
+                    }
                     description={site.description}
                     location={site.location}
                     showFavoriteButton={false}
