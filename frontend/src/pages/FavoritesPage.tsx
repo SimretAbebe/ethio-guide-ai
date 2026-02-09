@@ -82,7 +82,7 @@ export default function FavoritesPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <div className="text-red-500 text-6xl mb-4"></div>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             Oops! Something went wrong
           </h2>
@@ -103,7 +103,7 @@ export default function FavoritesPage() {
       {/* Header */}
       <section className="bg-gradient-to-r from-green-600 to-yellow-500 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold mb-4">❤️ My Favorite Sites</h1>
+          <h1 className="text-4xl font-bold mb-4">My Favorite Sites</h1>
           <p className="text-xl max-w-2xl mx-auto">
             Your personalized collection of Ethiopian cultural treasures
           </p>
@@ -114,7 +114,6 @@ export default function FavoritesPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {favorites.length === 0 ? (
           <div className="text-center py-16">
-            <span className="text-8xl mb-6 block">📌</span>
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
               No Favorites Yet
             </h2>
@@ -157,10 +156,7 @@ export default function FavoritesPage() {
                   <button
                     onClick={() => handleRemoveFavorite(site.name)}
                     className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors shadow-lg z-10"
-                    title="Remove from favorites"
-                  >
-                    🗑️ Remove
-                  </button>
+                    title="Remove from favorites">Remove</button>
                 </div>
               ))}
             </div>
@@ -172,7 +168,7 @@ export default function FavoritesPage() {
       <footer className="bg-gray-800 text-white py-8 mt-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-300">
-            &copy; 2025 EthioGuide. Celebrating Ethiopia's Rich Heritage.
+            &copy; 2026 EthioGuide. Celebrating Ethiopia's Rich Heritage.
           </p>
         </div>
       </footer>
