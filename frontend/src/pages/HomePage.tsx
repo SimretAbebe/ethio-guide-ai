@@ -28,7 +28,6 @@ export default function HomePage() {
       setLoading(true);
       setError(null);
 
-      // Build query parameters
       const params = new URLSearchParams();
       if (search) params.append("search", search);
       if (category) params.append("category", category);

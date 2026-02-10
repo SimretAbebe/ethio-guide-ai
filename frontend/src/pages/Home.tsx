@@ -88,7 +88,7 @@ export default function Home() {
       <footer className="bg-gray-800 text-white py-8 mt-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-300">
-            &copy; 2026 EthioGuide. Celebrating Ethiopia's Rich Heritage.
+            &copy; 2026 EthioGuide.
           </p>
         </div>
       </footer>
