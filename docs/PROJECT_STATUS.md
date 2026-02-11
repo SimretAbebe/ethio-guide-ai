@@ -1,6 +1,5 @@
 # EthioGuide Project Status
 
-Last Updated: February 9, 2026
 
 ## ✅ Completed Features
 
