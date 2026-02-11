@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import EthiopiaMap from "../components/EthiopiaMap";
+import SearchBar from "../components/SearchBar";
 
 interface CulturalSite {
   name: string;
@@ -19,6 +20,7 @@ interface CulturalSite {
 
 export default function MapPage() {
   const [sites, setSites] = useState<CulturalSite[]>([]);
+  const [filteredSites, setFilteredSites] = useState<CulturalSite[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedSite, setSelectedSite] = useState<CulturalSite | null>(null);
@@ -37,6 +39,7 @@ export default function MapPage() {
 
         const data: CulturalSite[] = await response.json();
         setSites(data);
+        setFilteredSites(data);
       } catch (err) {
         console.error("Error fetching cultural sites:", err);
         setError(
@@ -49,6 +52,31 @@ export default function MapPage() {
 
     fetchSites();
   }, []);
+
+  const handleSearch = (search: string, category: string, region: string) => {
+    let filtered = sites;
+
+    if (search) {
+      const searchLower = search.toLowerCase();
+      filtered = filtered.filter(
+        (site) =>
+          site.name.toLowerCase().includes(searchLower) ||
+          site.description.toLowerCase().includes(searchLower) ||
+          site.location.toLowerCase().includes(searchLower)
+      );
+    }
+
+    if (category) {
+      filtered = filtered.filter((site) => site.category === category);
+    }
+
+    if (region) {
+      filtered = filtered.filter((site) => site.region === region);
+    }
+
+    setFilteredSites(filtered);
+    setSelectedSite(null); // Clear selection on filter change
+  };
 
   const handleSiteSelect = (site: CulturalSite) => {
     setSelectedSite(site);
@@ -102,10 +130,18 @@ export default function MapPage() {
 
       {/* Map Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {/* Search Bar */}
+        <SearchBar onSearch={handleSearch} />
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Map */}
           <div className="lg:col-span-2">
-            <EthiopiaMap sites={sites} onSiteSelect={handleSiteSelect} />
+            <EthiopiaMap 
+              sites={filteredSites} 
+              onSiteSelect={handleSiteSelect} 
+              selectedSite={selectedSite}
+            />
             <p className="text-sm text-gray-500 mt-2 text-center">
               Click on markers to view site details
             </p>
@@ -206,10 +242,10 @@ export default function MapPage() {
             {/* Sites List */}
             <div className="bg-white rounded-xl shadow-lg p-6 mt-6">
               <h3 className="text-lg font-bold text-gray-800 mb-4">
-                All Sites ({sites.length})
+                All Sites ({filteredSites.length})
               </h3>
               <div className="space-y-2 max-h-64 overflow-y-auto">
-                {sites.map((site) => (
+                {filteredSites.map((site) => (
                   <button
                     key={site.name}
                     onClick={() => setSelectedSite(site)}

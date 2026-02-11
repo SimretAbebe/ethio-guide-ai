@@ -1,4 +1,5 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -30,6 +31,7 @@ interface CulturalSite {
 interface EthiopiaMapProps {
   sites: CulturalSite[];
   onSiteSelect?: (site: CulturalSite) => void;
+  selectedSite?: CulturalSite | null;
 }
 
 // Custom marker icon
@@ -47,7 +49,27 @@ const customIcon = new L.Icon({
 const ETHIOPIA_CENTER: [number, number] = [9.145, 40.489];
 const DEFAULT_ZOOM = 6;
 
-export default function EthiopiaMap({ sites, onSiteSelect }: EthiopiaMapProps) {
+// Component to handle map actions like flying to a location
+function MapController({ selectedSite }: { selectedSite: CulturalSite | null }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (selectedSite && selectedSite.coordinates) {
+      map.flyTo(
+        [selectedSite.coordinates.latitude, selectedSite.coordinates.longitude],
+        10, // Zoom level when site selected
+        {
+          animate: true,
+          duration: 1.5,
+        }
+      );
+    }
+  }, [selectedSite, map]);
+
+  return null;
+}
+
+export default function EthiopiaMap({ sites, onSiteSelect, selectedSite }: EthiopiaMapProps) {
   // Filter sites that have coordinates
   const sitesWithCoordinates = sites.filter(
     (site) => site.coordinates?.latitude && site.coordinates?.longitude
@@ -65,6 +87,8 @@ export default function EthiopiaMap({ sites, onSiteSelect }: EthiopiaMapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        <MapController selectedSite={selectedSite || null} />
 
         {sitesWithCoordinates.map((site) => (
           <Marker
