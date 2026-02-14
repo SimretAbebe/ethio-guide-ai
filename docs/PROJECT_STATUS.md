@@ -167,3 +167,6 @@ None - all core features are either complete or not started.
   - Added backend support for reviews and ratings in `CulturalSite` model.
   - Integrated with interactive map via "View Full Details" button.
   - Verified with 19 passing backend tests.
+- ✅ **Data Expansion**:
+  - Added more photos and reviews for all existing sites.
+  - Added new sites: **Harar Jugol** (Historic Town) and **Konso Cultural Landscape**.
