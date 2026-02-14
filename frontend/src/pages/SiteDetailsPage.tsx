@@ -76,9 +76,9 @@ export default function SiteDetailsPage() {
               </Link>
               <h1 className="text-4xl md:text-6xl font-black">{site.name}</h1>
               <div className="flex flex-wrap gap-4 mt-6">
-                <span className="bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm font-semibold">📍 {site.location}</span>
-                <span className="bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm font-semibold">🗺️ {site.region}</span>
-                <span className="bg-yellow-400 text-yellow-900 px-4 py-2 rounded-full text-sm font-bold shadow-lg">★ {(site.average_rating || 0).toFixed(1)}</span>
+                <span className="bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm font-semibold">{site.location}</span>
+                <span className="bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm font-semibold">{site.region}</span>
+                <span className="bg-yellow-400 text-yellow-900 px-4 py-2 rounded-full text-sm font-bold shadow-lg">{(site.average_rating || 0).toFixed(1)}</span>
               </div>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function SiteDetailsPage() {
               <h3 className="text-xl font-bold text-gray-800 mb-6">Quick Facts</h3>
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center text-2xl">🏷️</div>
+                  <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center text-2xl"></div>
                   <div>
                     <span className="text-gray-400 text-sm block">Category</span>
                     <span className="font-bold text-gray-800">{site.category}</span>
@@ -137,7 +137,7 @@ export default function SiteDetailsPage() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center text-2xl">⏰</div>
+                  <div className="w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center text-2xl"></div>
                   <div>
                     <span className="text-gray-400 text-sm block">Visiting Hours</span>
                     <span className="font-bold text-gray-800">{site.visiting_hours || "Contact for info"}</span>
@@ -145,7 +145,7 @@ export default function SiteDetailsPage() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-2xl">🎟️</div>
+                  <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-2xl"></div>
                   <div>
                     <span className="text-gray-400 text-sm block">Entry Fee</span>
                     <span className="font-bold text-gray-800">{site.entry_fee ? `${site.entry_fee} ETB` : "Free Entrance"}</span>

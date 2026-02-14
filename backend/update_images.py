@@ -73,7 +73,7 @@ def main():
         update_site_images(database)
         print("\nUpdate completed!")
     except Exception as e:
-        print(f"\n❌ Failed: {str(e)}")
+        print(f"\n Failed: {str(e)}")
         exit(1)
 
 if __name__ == "__main__":

@@ -88,7 +88,7 @@ def main():
         seed_detailed_data(database)
         print("\nSeed completed!")
     except Exception as e:
-        print(f"\n❌ Failed: {str(e)}")
+        print(f"\n Failed: {str(e)}")
         exit(1)
 
 if __name__ == "__main__":
