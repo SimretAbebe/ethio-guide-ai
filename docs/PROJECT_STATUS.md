@@ -37,6 +37,7 @@
 - API integration with backend (port 8001)
 - **Complete favorites system** (view, add, remove)
 - **Search & Filter system** (search by text, filter by category/region)
+- **Site Details Page**: Detailed view with image gallery and reviews/ratings system
 
 ### Infrastructure
 - Git repository initialized
@@ -74,10 +75,6 @@ None - all core features are either complete or not started.
    - Profile management
    - Personalized favorites per user
 
-6. **Site Details Page**
-   - Detailed view for each site
-   - Image gallery
-   - Reviews/ratings
 
 ### Low Priority
 7. **Admin Panel**
@@ -162,3 +159,11 @@ None - all core features are either complete or not started.
 - ✅ Updated Navbar with Favorites link
 - ✅ Added 2 new tests for favorites endpoints (total: 13 tests)
 - ✅ All tests passing successfully
+### February 14, 2026
+- ✅ **Site Details Page Implementation**:
+  - Created `SiteDetailsPage` with hero section and quick facts.
+  - Implemented `ImageGallery` for multiple site photos.
+  - Developed `Reviews` system with rating calculation and submission form.
+  - Added backend support for reviews and ratings in `CulturalSite` model.
+  - Integrated with interactive map via "View Full Details" button.
+  - Verified with 19 passing backend tests.

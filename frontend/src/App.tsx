@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import HomePage from "./pages/HomePage";
 import MapPage from "./pages/MapPage";
 import FavoritesPage from "./pages/FavoritesPage";
+import SiteDetailsPage from "./pages/SiteDetailsPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/explore" element={<HomePage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/site/:name" element={<SiteDetailsPage />} />
         </Routes>
       </div>
     </Router>

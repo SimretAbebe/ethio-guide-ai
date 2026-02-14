@@ -7,6 +7,11 @@ from app.services.database import get_database
 class FavoriteRequest(BaseModel):
     site_name: str
 
+class ReviewRequest(BaseModel):
+    user_name: str
+    rating: int
+    comment: str
+
 router = APIRouter()
 
 @router.get("/sites", response_model=List[CulturalSite])
@@ -51,7 +56,7 @@ async def get_all_sites(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch sites: {str(e)}")
 
-@router.get("/sites/{site_name}", response_model=Dict[str, Any])
+@router.get("/sites/{site_name}", response_model=CulturalSite)
 async def get_site_by_name(site_name: str):
     """
     Get a specific cultural site by name from MongoDB
@@ -177,3 +182,60 @@ async def remove_from_favorites(site_name: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to remove from favorites: {str(e)}")
+@router.post("/sites/{site_name}/reviews", response_model=Dict[str, Any])
+async def add_review(site_name: str, request: ReviewRequest):
+    """
+    Add a review to a cultural site
+    Calculates and updates average rating
+    """
+    try:
+        db = get_database()
+        sites_collection = db["cultural_sites"]
+
+        # Find site
+        site = sites_collection.find_one(
+            {"name": {"$regex": f"^{site_name}$", "$options": "i"}}
+        )
+
+        if site is None:
+            raise HTTPException(status_code=404, detail="Site not found")
+
+        # Create review object
+        import datetime
+        review = {
+            "user_name": request.user_name,
+            "rating": request.rating,
+            "comment": request.comment,
+            "created_at": datetime.datetime.now().isoformat()
+        }
+
+        # Get existing reviews or initialize
+        reviews = site.get("reviews", [])
+        reviews.append(review)
+
+        # Calculate new average rating
+        total_rating = sum(r["rating"] for r in reviews)
+        average_rating = total_rating / len(reviews)
+
+        # Update site in DB
+        result = sites_collection.update_one(
+            {"name": {"$regex": f"^{site_name}$", "$options": "i"}},
+            {"$set": {
+                "reviews": reviews,
+                "average_rating": average_rating
+            }}
+        )
+
+        if result.modified_count > 0:
+            return {
+                "message": "Review added successfully",
+                "average_rating": average_rating,
+                "review": review
+            }
+        else:
+            raise HTTPException(status_code=500, detail="Failed to update site with review")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to add review: {str(e)}")

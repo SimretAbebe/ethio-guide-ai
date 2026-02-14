@@ -85,6 +85,21 @@ class TestSitesEndpoints:
         if response.status_code == 200:
             assert isinstance(response.json(), list)
 
+    def test_add_review_endpoint_exists(self):
+        """Test that /sites/{site_name}/reviews POST endpoint is accessible"""
+        # Testing with a dummy site name, expecting 404 or 500
+        response = client.post("/sites/DummySite123/reviews", json={
+            "user_name": "Test User",
+            "rating": 5,
+            "comment": "Nice place!"
+        })
+        assert response.status_code in [404, 500]
+
+    def test_add_review_requires_fields(self):
+        """Test that adding a review requires all fields"""
+        response = client.post("/sites/Axum%20Obelisks/reviews", json={})
+        assert response.status_code == 422
+
 
 class TestAPIDocumentation:
     """Test API documentation endpoints"""

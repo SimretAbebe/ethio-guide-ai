@@ -223,6 +223,15 @@ export default function MapPage() {
                         </span>
                       </div>
                     )}
+
+                    <div className="pt-6">
+                      <a
+                        href={`/site/${encodeURIComponent(selectedSite.name)}`}
+                        className="block w-full text-center bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                      >
+                         View Full Details & Photos
+                      </a>
+                    </div>
                   </div>
                 </div>
               ) : (
