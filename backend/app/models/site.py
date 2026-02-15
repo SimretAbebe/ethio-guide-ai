@@ -23,6 +23,7 @@ class CulturalSite(BaseModel):
     coordinates: Optional[dict] = None
     reviews: Optional[List[Review]] = []
     average_rating: Optional[float] = 0.0
+    created_at: Optional[str] = None
 
     class Config:
         # Allow ObjectId conversion

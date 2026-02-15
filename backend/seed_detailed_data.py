@@ -32,9 +32,10 @@ def seed_detailed_data(database):
             ],
             "reviews": [
                 {"user_name": "Abebe B.", "rating": 5, "comment": "Breathtaking architecture. A must-see!", "created_at": datetime.datetime.now().isoformat()},
-                {"user_name": "Sara M.", "rating": 4, "comment": "Very crowded but worth the visit.", "created_at": datetime.datetime.now().isoformat()}
+                {"user_name": "Sara m.", "rating": 4, "comment": "Very crowded but worth the visit.", "created_at": datetime.datetime.now().isoformat()}
             ],
-            "average_rating": 4.5
+            "average_rating": 4.5,
+            "created_at": (datetime.datetime.now() - datetime.timedelta(days=10)).isoformat()
         },
         "Simien Mountains National Park": {
             "images": [
@@ -44,7 +45,8 @@ def seed_detailed_data(database):
             "reviews": [
                 {"user_name": "Dawit K.", "rating": 5, "comment": "Best hiking experience in Africa!", "created_at": datetime.datetime.now().isoformat()}
             ],
-            "average_rating": 5.0
+            "average_rating": 5.0,
+            "created_at": (datetime.datetime.now() - datetime.timedelta(days=5)).isoformat()
         },
         "Axum Obelisks": {
             "images": [
@@ -54,7 +56,8 @@ def seed_detailed_data(database):
             "reviews": [
                 {"user_name": "Hassan A.", "rating": 4, "comment": "Rich history, very impressive monuments.", "created_at": datetime.datetime.now().isoformat()}
             ],
-            "average_rating": 4.0
+            "average_rating": 4.0,
+            "created_at": (datetime.datetime.now() - datetime.timedelta(days=15)).isoformat()
         },
         "Fasil Ghebbi (Gondar Castle)": {
             "images": [
@@ -64,7 +67,8 @@ def seed_detailed_data(database):
             "reviews": [
                 {"user_name": "Mulugeta T.", "rating": 5, "comment": "The Camelot of Africa! Incredible architecture.", "created_at": datetime.datetime.now().isoformat()}
             ],
-            "average_rating": 5.0
+            "average_rating": 5.0,
+            "created_at": (datetime.datetime.now() - datetime.timedelta(days=2)).isoformat()
         },
         "Lower Valley of the Awash": {
             "images": [
@@ -73,7 +77,8 @@ def seed_detailed_data(database):
             "reviews": [
                 {"user_name": "Dr. Smith", "rating": 4, "comment": "A humbling experience to see where Lucy was found.", "created_at": datetime.datetime.now().isoformat()}
             ],
-            "average_rating": 4.0
+            "average_rating": 4.0,
+            "created_at": (datetime.datetime.now() - datetime.timedelta(days=20)).isoformat()
         },
         "Harar Jugol": {
             "description": "The fortified historic town of Harar Jugol is located in the eastern part of the country on a plateau. It is considered the 'fourth holy city of Islam' and features 82 mosques and 102 shrines.",
@@ -90,7 +95,8 @@ def seed_detailed_data(database):
             "reviews": [
                 {"user_name": "Fatuma Y.", "rating": 5, "comment": "The hyena feeding ceremony is unforgettable!", "created_at": datetime.datetime.now().isoformat()}
             ],
-            "average_rating": 5.0
+            "average_rating": 5.0,
+            "created_at": (datetime.datetime.now() - datetime.timedelta(days=8)).isoformat()
         },
         "Konso Cultural Landscape": {
             "description": "A 55 sq km arid property of stone-walled terraces and fortified settlements in the Konso highlands. This landscape is a spectacular example of a living cultural tradition stretching back 21 generations.",
@@ -107,7 +113,8 @@ def seed_detailed_data(database):
             "reviews": [
                 {"user_name": "Kassa G.", "rating": 4, "comment": "The terraces are a masterpiece of traditional engineering.", "created_at": datetime.datetime.now().isoformat()}
             ],
-            "average_rating": 4.0
+            "average_rating": 4.0,
+            "created_at": (datetime.datetime.now() - datetime.timedelta(days=1)).isoformat()
         }
     }
     

@@ -2,13 +2,14 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 
 interface SearchBarProps {
-  onSearch: (search: string, category: string, region: string) => void;
+  onSearch: (search: string, category: string, region: string, sortBy: string) => void;
 }
 
 export default function SearchBar({ onSearch }: SearchBarProps) {
   const [searchText, setSearchText] = useState("");
   const [category, setCategory] = useState("");
   const [region, setRegion] = useState("");
+  const [sortBy, setSortBy] = useState("name");
 
   const categories = [
     "All Categories",
@@ -31,14 +32,15 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   const handleSearch = () => {
     const cat = category === "All Categories" ? "" : category;
     const reg = region === "All Regions" ? "" : region;
-    onSearch(searchText, cat, reg);
+    onSearch(searchText, cat, reg, sortBy);
   };
 
   const handleReset = () => {
     setSearchText("");
     setCategory("");
     setRegion("");
-    onSearch("", "", "");
+    setSortBy("name");
+    onSearch("", "", "", "name");
   };
 
   return (
@@ -89,6 +91,19 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
                 {reg}
               </option>
             ))}
+          </select>
+        </div>
+
+        {/* Sort By */}
+        <div>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            <option value="name">Sort by Name</option>
+            <option value="date">Sort by Date Added</option>
+            <option value="popularity">Sort by Popularity</option>
           </select>
         </div>
       </div>

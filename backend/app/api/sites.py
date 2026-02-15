@@ -18,7 +18,9 @@ router = APIRouter()
 async def get_all_sites(
     search: str = None,
     category: str = None,
-    region: str = None
+    region: str = None,
+    sort_by: str = "name",
+    order: str = "asc"
 ):
     """
     Get all cultural sites from MongoDB with optional filtering
@@ -48,8 +50,18 @@ async def get_all_sites(
         if region:
             query_filter["region"] = {"$regex": f"^{region}$", "$options": "i"}
 
-        # Get sites with filter, exclude _id
-        sites = list(sites_collection.find(query_filter, {"_id": 0}))
+        # Define sort mapping
+        sort_mapping = {
+            "name": "name",
+            "date": "created_at",
+            "popularity": "average_rating"
+        }
+        
+        sort_field = sort_mapping.get(sort_by, "name")
+        sort_order = 1 if order == "asc" else -1
+
+        # Get sites with filter, exclude _id, and apply sort
+        sites = list(sites_collection.find(query_filter, {"_id": 0}).sort(sort_field, sort_order))
 
         return sites
 

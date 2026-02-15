@@ -23,7 +23,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchSites = async (search = "", category = "", region = "") => {
+  const fetchSites = async (search = "", category = "", region = "", sortBy = "name") => {
     try {
       setLoading(true);
       setError(null);
@@ -32,6 +32,7 @@ export default function HomePage() {
       if (search) params.append("search", search);
       if (category) params.append("category", category);
       if (region) params.append("region", region);
+      if (sortBy) params.append("sort_by", sortBy);
 
       const url = `http://127.0.0.1:8001/sites${params.toString() ? `?${params.toString()}` : ""}`;
       const response = await fetch(url);
@@ -54,8 +55,8 @@ export default function HomePage() {
     fetchSites();
   }, []);
 
-  const handleSearch = (search: string, category: string, region: string) => {
-    fetchSites(search, category, region);
+  const handleSearch = (search: string, category: string, region: string, sortBy: string) => {
+    fetchSites(search, category, region, sortBy);
   };
 
   if (loading) {
