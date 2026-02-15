@@ -22,13 +22,6 @@ async def get_all_sites(
     sort_by: str = "name",
     order: str = "asc"
 ):
-    """
-    Get all cultural sites from MongoDB with optional filtering
-    Query params:
-    - search: Search in name, description, location (case-insensitive)
-    - category: Filter by category
-    - region: Filter by region
-    """
     try:
         db = get_database()
         sites_collection = db["cultural_sites"]
@@ -70,11 +63,6 @@ async def get_all_sites(
 
 @router.get("/sites/{site_name}", response_model=CulturalSite)
 async def get_site_by_name(site_name: str):
-    """
-    Get a specific cultural site by name from MongoDB
-    Excludes _id field from response
-    Returns 404 if site not found
-    """
     try:
         db = get_database()
         sites_collection = db["cultural_sites"]
@@ -97,10 +85,7 @@ async def get_site_by_name(site_name: str):
 
 @router.get("/favorites", response_model=List[Dict[str, Any]])
 async def get_all_favorites():
-    """
-    Get all favorite sites with their full details
-    Returns list of favorite sites with complete information
-    """
+
     try:
         db = get_database()
         favorites_collection = db["favorites"]
@@ -126,11 +111,6 @@ async def get_all_favorites():
 
 @router.post("/favorites", response_model=Dict[str, str])
 async def add_to_favorites(request: FavoriteRequest):
-    """
-    Add a cultural site to favorites collection
-    Handles duplicate entries gracefully
-    Returns confirmation message
-    """
     try:
         db = get_database()
         favorites_collection = db["favorites"]
@@ -172,10 +152,6 @@ async def add_to_favorites(request: FavoriteRequest):
 
 @router.delete("/favorites/{site_name}", response_model=Dict[str, str])
 async def remove_from_favorites(site_name: str):
-    """
-    Remove a cultural site from favorites collection
-    Returns confirmation message or 404 if not found
-    """
     try:
         db = get_database()
         favorites_collection = db["favorites"]
@@ -196,10 +172,6 @@ async def remove_from_favorites(site_name: str):
         raise HTTPException(status_code=500, detail=f"Failed to remove from favorites: {str(e)}")
 @router.post("/sites/{site_name}/reviews", response_model=Dict[str, Any])
 async def add_review(site_name: str, request: ReviewRequest):
-    """
-    Add a review to a cultural site
-    Calculates and updates average rating
-    """
     try:
         db = get_database()
         sites_collection = db["cultural_sites"]
