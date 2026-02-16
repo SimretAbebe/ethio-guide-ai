@@ -97,7 +97,6 @@ export default function MapPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-md mx-auto p-6">
-          <div className="text-red-500 text-6xl mb-4">🗺️</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             Could not load map
           </h2>
@@ -236,7 +235,6 @@ export default function MapPage() {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <span className="text-6xl mb-4 block">🏛️</span>
                   <h3 className="text-xl font-semibold text-gray-700 mb-2">
                     Select a Site
                   </h3>

@@ -45,7 +45,7 @@ export default function Recommendations() {
   }
 
   if (error || recommendations.length === 0) {
-    return null; // Don't show anything if there's an error or no recommendations
+    return null; 
   }
 
   return (

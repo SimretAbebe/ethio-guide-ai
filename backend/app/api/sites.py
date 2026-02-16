@@ -238,14 +238,13 @@ async def get_recommendations(top_k: int = 5):
         favorites_collection = db["favorites"]
         sites_collection = db["cultural_sites"]
 
-        # 1. Get user's favorites
+        
         favorites = list(favorites_collection.find({}, {"_id": 0}))
         if not favorites:
-            # If no favorites, return top rated sites as fallback
+           
             top_sites = list(sites_collection.find({}, {"_id": 0}).sort("average_rating", -1).limit(top_k))
             return top_sites
 
-        # Get full site details for favorites to use their descriptions
         favorite_site_names = [f["site_name"] for f in favorites]
         favorite_sites = list(sites_collection.find(
             {"name": {"$in": favorite_site_names}},
@@ -256,24 +255,22 @@ async def get_recommendations(top_k: int = 5):
         if not favorite_descriptions:
             return []
 
-        # 2. Get all sites (to compare against)
+       
         all_sites = list(sites_collection.find({}, {"_id": 0}))
         all_descriptions = [s.get("description", "") for s in all_sites]
 
-        # 3. Generate embeddings
-        # NOTE: In a production app, we would pre-calculate and cache these
         favorite_embeddings = ai_service.generate_embeddings(favorite_descriptions)
         all_embeddings = ai_service.generate_embeddings(all_descriptions)
 
-        # 4. Get recommendations
+       
         recommendations = ai_service.get_recommendations(
             favorite_embeddings, 
             all_embeddings, 
             all_sites, 
-            top_k=top_k + len(favorite_site_names) # Get more to allow filtering favorites
+            top_k=top_k + len(favorite_site_names) 
         )
 
-        # Filter out sites already in favorites
+       
         filtered_recommendations = [
             r for r in recommendations 
             if r["name"] not in favorite_site_names

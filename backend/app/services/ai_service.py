@@ -27,26 +27,16 @@ class AIService:
         all_sites: List[Dict], 
         top_k: int = 5
     ) -> List[Dict]:
-        """
-        Get top_k site recommendations based on user favorites using cosine similarity.
-        """
         if user_favorite_embeddings.size == 0 or all_site_embeddings.size == 0:
             return []
-            
-        # Calculate a profile vector by averaging the favorite site embeddings
         user_profile = np.mean(user_favorite_embeddings, axis=0).reshape(1, -1)
         
-        # Calculate cosine similarity between user profile and all available sites
-        similarities = cosine_similarity(user_profile, all_site_embeddings)[0]
-        
-        # Get indices of top_k most similar sites
-        # We should filter out sites already in favorites on the API level or here
+
         top_indices = np.argsort(similarities)[::-1]
         
-        # Filter out sites that are already in favorites (based on name for now)
+     
         favorite_names = {site.get("name") for site in all_sites if any(np.array_equal(self.model.encode([site.get("description", "")]), emb) for emb in user_favorite_embeddings)}
-        # Optimized: just get top K and let the API handle filtering if needed, 
-        # but let's return with scores for now.
+       
         
         recommendations = []
         for idx in top_indices:
@@ -61,8 +51,7 @@ class AIService:
                 break
             
         return recommendations
-
-# Singleton instance
+        
 ai_service = None
 
 def get_ai_service() -> AIService:

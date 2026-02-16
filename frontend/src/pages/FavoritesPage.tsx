@@ -139,8 +139,7 @@ export default function FavoritesPage() {
               <button
                 onClick={() => fetchFavorites()}
                 className="text-green-600 hover:text-green-700 font-medium"
-              >
-                🔄 Refresh
+              >Refresh
               </button>
             </div>
 
