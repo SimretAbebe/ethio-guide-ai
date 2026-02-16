@@ -223,3 +223,64 @@ async def add_review(site_name: str, request: ReviewRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to add review: {str(e)}")
+
+@router.get("/recommendations", response_model=List[Dict[str, Any]])
+async def get_recommendations(top_k: int = 5):
+    """
+    Get personalized site recommendations based on user's favorites.
+    Uses AI embedding similarity.
+    """
+    try:
+        from app.services.ai_service import get_ai_service
+        ai_service = get_ai_service()
+        
+        db = get_database()
+        favorites_collection = db["favorites"]
+        sites_collection = db["cultural_sites"]
+
+        # 1. Get user's favorites
+        favorites = list(favorites_collection.find({}, {"_id": 0}))
+        if not favorites:
+            # If no favorites, return top rated sites as fallback
+            top_sites = list(sites_collection.find({}, {"_id": 0}).sort("average_rating", -1).limit(top_k))
+            return top_sites
+
+        # Get full site details for favorites to use their descriptions
+        favorite_site_names = [f["site_name"] for f in favorites]
+        favorite_sites = list(sites_collection.find(
+            {"name": {"$in": favorite_site_names}},
+            {"_id": 0}
+        ))
+        
+        favorite_descriptions = [s.get("description", "") for s in favorite_sites]
+        if not favorite_descriptions:
+            return []
+
+        # 2. Get all sites (to compare against)
+        all_sites = list(sites_collection.find({}, {"_id": 0}))
+        all_descriptions = [s.get("description", "") for s in all_sites]
+
+        # 3. Generate embeddings
+        # NOTE: In a production app, we would pre-calculate and cache these
+        favorite_embeddings = ai_service.generate_embeddings(favorite_descriptions)
+        all_embeddings = ai_service.generate_embeddings(all_descriptions)
+
+        # 4. Get recommendations
+        recommendations = ai_service.get_recommendations(
+            favorite_embeddings, 
+            all_embeddings, 
+            all_sites, 
+            top_k=top_k + len(favorite_site_names) # Get more to allow filtering favorites
+        )
+
+        # Filter out sites already in favorites
+        filtered_recommendations = [
+            r for r in recommendations 
+            if r["name"] not in favorite_site_names
+        ][:top_k]
+
+        return filtered_recommendations
+
+    except Exception as e:
+        print(f"Error in recommendations: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get recommendations: {str(e)}")

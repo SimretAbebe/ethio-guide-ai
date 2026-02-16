@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import CulturalSiteCard from "../components/CulturalSiteCard";
 import SearchBar from "../components/SearchBar";
+import Recommendations from "../components/Recommendations";
 
 interface CulturalSite {
   name: string;
@@ -102,6 +103,9 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      {/* Recommended for You Section */}
+      <Recommendations />
 
       {/* Cultural Sites Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

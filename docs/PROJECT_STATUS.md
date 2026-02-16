@@ -52,23 +52,14 @@ None - all core features are either complete or not started.
 ## ❌ Not Yet Implemented
 
 ### High Priority
-1. **AI-based Recommendations**
-   - OpenAI/HuggingFace integration
-   - User preference analysis
-   - Recommendation endpoint
+- **AI-based Recommendations**: Personalized site suggestions using HuggingFace embeddings and cosine similarity.
 
 2. **AI Chatbot Tour Guide**
    - Chat interface component
    - AI conversation endpoint
    - Context-aware responses about Ethiopian sites
 
-3. **Enhanced Map Features**
-   - Filter by category/region on map
-   - Zoom to selected site
 
-### Medium Priority
-4. **Sort Functionality**
-   - Sort sites by name, date, popularity
 
 5. **User Authentication**
    - User registration/login
@@ -76,10 +67,6 @@ None - all core features are either complete or not started.
    - Personalized favorites per user
 
 
-### Low Priority
-7. **Admin Panel**
-   - Add/edit/delete sites
-   - Manage site data
 
 8. **Performance Optimizations**
    - Caching
