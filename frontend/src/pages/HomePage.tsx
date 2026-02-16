@@ -75,7 +75,6 @@ export default function HomePage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Oops! Something went wrong</h2>
           <p className="text-gray-600 mb-6">{error}</p>
           <button
@@ -104,7 +103,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Recommended for You Section */}
+     
       <Recommendations />
 
       {/* Cultural Sites Section */}

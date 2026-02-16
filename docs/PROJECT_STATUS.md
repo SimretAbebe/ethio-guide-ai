@@ -51,8 +51,6 @@ None - all core features are either complete or not started.
 
 ## ❌ Not Yet Implemented
 
-### High Priority
-- **AI-based Recommendations**: Personalized site suggestions using HuggingFace embeddings and cosine similarity.
 
 2. **AI Chatbot Tour Guide**
    - Chat interface component

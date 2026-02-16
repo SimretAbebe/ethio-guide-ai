@@ -11,7 +11,7 @@ def test_ai_service():
     
     print(f"Generated embeddings shape: {embeddings.shape}")
     
-    # Simple similarity test
+    
     sim = ai.get_recommendations(
         user_favorite_embeddings=embeddings[0:1], # Lalibela
         all_site_embeddings=embeddings,
