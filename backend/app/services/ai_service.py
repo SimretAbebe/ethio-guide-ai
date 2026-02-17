@@ -13,10 +13,7 @@ class AIService:
         self.model = SentenceTransformer(model_name)
 
     def generate_embeddings(self, texts: List[str]) -> np.ndarray:
-        """
-        Generate embeddings for a list of texts.
-        """
-        if not texts:
+       if not texts:
             return np.array([])
         return self.model.encode(texts)
 
@@ -32,7 +29,7 @@ class AIService:
         
         user_profile = np.mean(user_favorite_embeddings, axis=0).reshape(1, -1)
         
-        # Calculate similarities between user profile and all sites
+   
         similarities = cosine_similarity(user_profile, all_site_embeddings).flatten()
 
         top_indices = np.argsort(similarities)[::-1]
@@ -52,10 +49,6 @@ class AIService:
         return recommendations
         
     def get_chat_response(self, prompt: str, context: str) -> str:
-        """
-        Mocked chat response for now, as we don't have an LLM API key.
-        In a real scenario, this would call OpenAI, Gemini, etc.
-        """
         # Simple rule-based or template-based response for demonstration
         if "lalibela" in prompt.lower():
             return "Lalibela is famous for its rock-hewn churches, built in the 12th and 13th centuries. It's often called the 'Eighth Wonder of the World'."

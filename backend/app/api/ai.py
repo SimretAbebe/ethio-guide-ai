@@ -11,9 +11,6 @@ class ChatRequest(BaseModel):
 
 @router.post("/chat")
 async def chat_with_guide(request: ChatRequest):
-    """
-    Chat with the EthioGuide AI tour guide.
-    """
     try:
         ai_service = get_ai_service()
         
