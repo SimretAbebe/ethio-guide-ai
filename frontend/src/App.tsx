@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import ChatBot from "./components/ChatBot";
 import Home from "./pages/Home";
 import HomePage from "./pages/HomePage";
 import MapPage from "./pages/MapPage";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/site/:name" element={<SiteDetailsPage />} />
         </Routes>
+        <ChatBot />
       </div>
     </Router>
   );

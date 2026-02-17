@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.sites import router as sites_router
+from app.api.ai import router as ai_router
 
 app = FastAPI(
     title="EthioGuide API",
@@ -19,6 +20,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(sites_router)
+app.include_router(ai_router)
 
 @app.get("/")
 async def root():

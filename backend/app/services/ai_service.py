@@ -29,14 +29,13 @@ class AIService:
     ) -> List[Dict]:
         if user_favorite_embeddings.size == 0 or all_site_embeddings.size == 0:
             return []
+        
         user_profile = np.mean(user_favorite_embeddings, axis=0).reshape(1, -1)
         
+        # Calculate similarities between user profile and all sites
+        similarities = cosine_similarity(user_profile, all_site_embeddings).flatten()
 
         top_indices = np.argsort(similarities)[::-1]
-        
-     
-        favorite_names = {site.get("name") for site in all_sites if any(np.array_equal(self.model.encode([site.get("description", "")]), emb) for emb in user_favorite_embeddings)}
-       
         
         recommendations = []
         for idx in top_indices:
@@ -52,6 +51,19 @@ class AIService:
             
         return recommendations
         
+    def get_chat_response(self, prompt: str, context: str) -> str:
+        """
+        Mocked chat response for now, as we don't have an LLM API key.
+        In a real scenario, this would call OpenAI, Gemini, etc.
+        """
+        # Simple rule-based or template-based response for demonstration
+        if "lalibela" in prompt.lower():
+            return "Lalibela is famous for its rock-hewn churches, built in the 12th and 13th centuries. It's often called the 'Eighth Wonder of the World'."
+        elif "axum" in prompt.lower():
+            return "Axum was the center of the Aksumite Empire. It's known for its ancient obelisks and the Church of St. Mary of Zion, which is said to house the Ark of the Covenant."
+        else:
+            return f"I'm your EthioGuide AI. I can tell you about many cultural sites in Ethiopia. You asked: '{prompt}'. Based on my knowledge, Ethiopia has a rich history with many UNESCO World Heritage sites."
+
 ai_service = None
 
 def get_ai_service() -> AIService:

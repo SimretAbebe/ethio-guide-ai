@@ -7,6 +7,7 @@
 - FastAPI application setup with CORS middleware
 - MongoDB integration via `pymongo`
 - Database service layer (`services/database.py`)
+- AI service layer (`services/ai_service.py`) - **FIXED**: Restored missing similarity calculation
 - Cultural sites data model (`models/site.py`)
 - RESTful API endpoints:
   - `GET /` - Root endpoint
@@ -38,6 +39,7 @@
 - **Complete favorites system** (view, add, remove)
 - **Search & Filter system** (search by text, filter by category/region)
 - **Site Details Page**: Detailed view with image gallery and reviews/ratings system
+- **AI Chatbot**: Floating assistant for heritage information and site guidance
 
 ### Infrastructure
 - Git repository initialized
@@ -52,10 +54,14 @@ None - all core features are either complete or not started.
 ## ❌ Not Yet Implemented
 
 
-2. **AI Chatbot Tour Guide**
-   - Chat interface component
-   - AI conversation endpoint
-   - Context-aware responses about Ethiopian sites
+### AI & Advanced Features
+- **AI Chatbot Tour Guide**:
+  - Chat interface component (`ChatBot.tsx`)
+  - AI conversation endpoint (`POST /ai/chat`)
+  - Context-aware responses about Ethiopian sites
+- **AI Recommendations**:
+  - Personalized site recommendations based on user's favorites
+  - AI embedding similarity search using `sentence-transformers`
 
 
 
@@ -155,3 +161,11 @@ None - all core features are either complete or not started.
 - ✅ **Data Expansion**:
   - Added more photos and reviews for all existing sites.
   - Added new sites: **Harar Jugol** (Historic Town) and **Konso Cultural Landscape**.
+
+### February 17, 2026
+- ✅ **AI Chatbot Tour Guide Implementation**:
+  - Created floating `ChatBot` component with real-time feedback.
+  - Implemented `POST /ai/chat` endpoint with context-aware responses.
+  - Fixed critical bug in `AIService.py` where recommendations were broken.
+  - Updated `backend/requirements.txt` with necessary AI dependencies.
+  - Successfully verified AI functionality with local test scripts.
