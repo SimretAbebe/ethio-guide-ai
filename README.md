@@ -8,7 +8,6 @@ The platform helps users discover historical sites, cultural places, and festiva
 - Frontend: React + TypeScript
 - Backend: Python (FastAPI)
 - Database: MONGODB
-- AI: OpenAI / HuggingFace
 - Maps: Leaflet.js
 
 
