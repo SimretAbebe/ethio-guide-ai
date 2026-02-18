@@ -228,7 +228,7 @@ async def add_review(site_name: str, request: ReviewRequest):
 async def get_recommendations(top_k: int = 5):
     """
     Get personalized site recommendations based on user's favorites.
-    Uses AI embedding similarity.
+    Uses cached AI embeddings for high performance.
     """
     try:
         from app.services.ai_service import get_ai_service
@@ -238,31 +238,35 @@ async def get_recommendations(top_k: int = 5):
         favorites_collection = db["favorites"]
         sites_collection = db["cultural_sites"]
 
+        # Ensure cache is populated (or at least attempt to)
+        all_sites = list(sites_collection.find({}, {"_id": 0}))
+        if not ai_service.site_embeddings_cache:
+            ai_service.update_site_embeddings_cache(all_sites)
         
         favorites = list(favorites_collection.find({}, {"_id": 0}))
         if not favorites:
-           
+            # Fallback to top rated sites
             top_sites = list(sites_collection.find({}, {"_id": 0}).sort("average_rating", -1).limit(top_k))
             return top_sites
 
         favorite_site_names = [f["site_name"] for f in favorites]
-        favorite_sites = list(sites_collection.find(
-            {"name": {"$in": favorite_site_names}},
-            {"_id": 0}
-        ))
         
-        favorite_descriptions = [s.get("description", "") for s in favorite_sites]
-        if not favorite_descriptions:
+        # Get embeddings from cache
+        favorite_embeddings = ai_service.get_cached_embeddings(favorite_site_names)
+        
+        # If any favorites are missing from cache (newly added?), update cache
+        if favorite_embeddings.shape[0] < len(favorite_site_names):
+            ai_service.update_site_embeddings_cache(all_sites)
+            favorite_embeddings = ai_service.get_cached_embeddings(favorite_site_names)
+
+        if favorite_embeddings.size == 0:
             return []
 
-       
-        all_sites = list(sites_collection.find({}, {"_id": 0}))
-        all_descriptions = [s.get("description", "") for s in all_sites]
+        # Get all embeddings from cache
+        all_site_names = [s["name"] for s in all_sites]
+        all_embeddings = ai_service.get_cached_embeddings(all_site_names)
 
-        favorite_embeddings = ai_service.generate_embeddings(favorite_descriptions)
-        all_embeddings = ai_service.generate_embeddings(all_descriptions)
-
-       
+        # Get recommendations
         recommendations = ai_service.get_recommendations(
             favorite_embeddings, 
             all_embeddings, 
@@ -270,7 +274,7 @@ async def get_recommendations(top_k: int = 5):
             top_k=top_k + len(favorite_site_names) 
         )
 
-       
+        # Filter out already favorited sites
         filtered_recommendations = [
             r for r in recommendations 
             if r["name"] not in favorite_site_names

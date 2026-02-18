@@ -50,7 +50,7 @@ export default function ChatBot() {
         },
         body: JSON.stringify({
           message: userMessage.text,
-          context: "You are a helpful Ethiopian tour guide. You are chatting with a user on the EthioGuide platform."
+          context: "" // The backend will now automatically generate detailed context
         }),
       });
 
@@ -111,7 +111,7 @@ export default function ChatBot() {
                 className={`flex ${ms.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-2xl ${
+                  className={`max-w-[80%] p-3 rounded-2xl whitespace-pre-wrap ${
                     ms.sender === 'user'
                       ? 'bg-green-600 text-white rounded-tr-none'
                       : 'bg-white text-gray-800 border border-gray-200 rounded-tl-none'
