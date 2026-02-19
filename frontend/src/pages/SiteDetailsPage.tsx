@@ -34,7 +34,7 @@ export default function SiteDetailsPage() {
     const fetchSite = async () => {
       try {
         setLoading(true);
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001";
+        const baseUrl = (import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001").replace(/\/+$/, "");
         const response = await fetch(`${baseUrl}/sites/${name}`);
         if (!response.ok) throw new Error("Site not found");
         const data = await response.json();

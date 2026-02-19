@@ -20,6 +20,7 @@ Ensure you have pushed your latest local changes to a GitHub repository.
 3.  **Add Environment Variables**:
     - Go to the **Environment** tab.
     - Click **Add Environment Variable** and add:
+        - `PYTHON_VERSION`: `3.11.8` (Critical: Fixes scikit-learn build issues)
         - `MONGODB_URI`: (Your MongoDB Atlas connection string)
         - `DATABASE_NAME`: `ethio_guide`
         - `GOOGLE_API_KEY`: (Your Gemini API Key)

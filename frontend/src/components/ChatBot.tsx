@@ -43,7 +43,7 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001";
+      const baseUrl = (import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001").replace(/\/+$/, "");
       const response = await fetch(`${baseUrl}/ai/chat`, {
         method: 'POST',
         headers: {

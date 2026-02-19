@@ -15,6 +15,14 @@ app = FastAPI(
 allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
 allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",")]
 
+# If you want to allow all vercel preview deployments, you can add "*" to allow all
+# but it's safer to explicitly list them or use a middleware check.
+# For simplicity, we'll allow "*" if the user explicitly sets it in ALLOWED_ORIGINS
+if "*" in allowed_origins:
+    allowed_origins = ["*"]
+
+print(f"CORS: Allowing origins: {allowed_origins}")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
