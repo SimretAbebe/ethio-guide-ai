@@ -35,7 +35,8 @@ export default function HomePage() {
       if (region) params.append("region", region);
       if (sortBy) params.append("sort_by", sortBy);
 
-      const url = `http://127.0.0.1:8001/sites${params.toString() ? `?${params.toString()}` : ""}`;
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001";
+      const url = `${baseUrl}/sites${params.toString() ? `?${params.toString()}` : ""}`;
       const response = await fetch(url);
 
       if (!response.ok) {

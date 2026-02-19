@@ -3,16 +3,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.sites import router as sites_router
 from app.api.ai import router as ai_router
 
+import os
+
 app = FastAPI(
     title="EthioGuide API",
     description="API for Ethiopian cultural sites and heritage information",
     version="1.0.0"
 )
 
+# CORS configuration
+allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",")]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
