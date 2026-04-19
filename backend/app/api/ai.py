@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.services.ai_service import get_ai_service
 from app.services.database import get_database
 
 router = APIRouter(prefix="/ai", tags=["AI"])
@@ -12,6 +11,7 @@ class ChatRequest(BaseModel):
 @router.post("/chat")
 async def chat_with_guide(request: ChatRequest):
     try:
+        from app.services.ai_service import get_ai_service
         ai_service = get_ai_service()
         
         # Build context from database if not explicitly provided

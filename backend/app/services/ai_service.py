@@ -15,8 +15,8 @@ class AIService:
         Initialize the AI Service with a sentence-transformer model and Gemini.
         """
         # For recommendations
-        print(f"Initializing SentenceTransformer with model: {model_name}")
-        self.model = SentenceTransformer(model_name)
+        self._model = None
+        self._model_name = model_name
         self.site_embeddings_cache = {} # site_name -> embedding
         
         # For ChatBot
@@ -26,7 +26,12 @@ class AIService:
             self.chat_model = genai.GenerativeModel('gemini-pro')
         else:
             self.chat_model = None
-            print("WARNING: GOOGLE_API_KEY not found. ChatBot will use fallback mode.")
+    @property
+    def model(self):
+        if self._model is None:
+            print(f"Loading SentenceTransformer model: {self._model_name}...")
+            self._model = SentenceTransformer(self._model_name)
+        return self._model
 
     def generate_embeddings(self, texts: List[str]) -> np.ndarray:
         if not texts:

@@ -23,6 +23,23 @@ if "*" in allowed_origins:
 
 print(f"CORS: Allowing origins: {allowed_origins}")
 
+@app.on_event("startup")
+async def startup_event():
+    print("EthioGuide API is starting up...")
+    print(f"Environment: {os.getenv('ENVIRONMENT', 'development')}")
+    # We don't connect to DB here to keep startup fast, 
+    # but we can verify the environment variables exist
+    if not os.getenv("MONGODB_URI"):
+        print("CRITICAL: MONGODB_URI is not set!")
+    if not os.getenv("GOOGLE_API_KEY"):
+        print("WARNING: GOOGLE_API_KEY is not set. AI Chat will be in fallback mode.")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("EthioGuide API is shutting down...")
+    from app.services.database import db_connection
+    db_connection.close()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
