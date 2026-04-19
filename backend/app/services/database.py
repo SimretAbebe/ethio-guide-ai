@@ -24,7 +24,7 @@ class DatabaseConnection:
                 raise ValueError("DATABASE_NAME environment variable is not set")
 
             try:
-                self.client = MongoClient(mongodb_uri)
+                self.client = MongoClient(mongodb_uri, serverSelectionTimeoutMS=5000)
                 self.database = self.client[database_name]
                 # Test the connection
                 self.client.admin.command('ping')
