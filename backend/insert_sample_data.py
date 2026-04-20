@@ -49,6 +49,10 @@ def insert_sample_sites(database: Database):
             "historical_significance": "Site of ancient Axumite civilization, one of Africa's oldest kingdoms",
             "visiting_hours": "8:00 AM - 5:00 PM",
             "entry_fee": 50.0,
+            "images": [
+                "https://images.unsplash.com/photo-1627311754972-20760472fac8?auto=format&fit=crop&w=1200&q=80",
+                "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1200&q=80"
+            ],
             "coordinates": {"latitude": 14.1271, "longitude": 38.7223}
         },
         {
@@ -60,6 +64,10 @@ def insert_sample_sites(database: Database):
             "historical_significance": "Built in the 12th-13th centuries during the Zagwe dynasty, representing outstanding medieval Ethiopian architecture",
             "visiting_hours": "6:00 AM - 6:00 PM",
             "entry_fee": 75.0,
+            "images": [
+                "https://images.unsplash.com/photo-1549468057-5b7fb2700d22?auto=format&fit=crop&w=1200&q=80",
+                "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&w=1200&q=80"
+            ],
             "coordinates": {"latitude": 12.0309, "longitude": 39.0476}
         },
         {
@@ -71,6 +79,10 @@ def insert_sample_sites(database: Database):
             "historical_significance": "Sacred mountains in Ethiopian Orthodox tradition, ancient human habitation sites",
             "visiting_hours": "6:00 AM - 6:00 PM",
             "entry_fee": 30.0,
+            "images": [
+                "https://images.unsplash.com/photo-1533221919575-f7166133beff?auto=format&fit=crop&w=1200&q=80",
+                "https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?auto=format&fit=crop&w=1200&q=80"
+            ],
             "coordinates": {"latitude": 13.1833, "longitude": 38.0667}
         },
         {
@@ -82,6 +94,10 @@ def insert_sample_sites(database: Database):
             "historical_significance": "Capital of Ethiopia during the 17th-19th centuries, center of the Solomonic dynasty",
             "visiting_hours": "8:00 AM - 5:00 PM",
             "entry_fee": 25.0,
+            "images": [
+                "https://images.unsplash.com/photo-1565538403986-ec938186178a?auto=format&fit=crop&w=1200&q=80",
+                "https://images.unsplash.com/photo-1518131359149-83c921509176?auto=format&fit=crop&w=1200&q=80"
+            ],
             "coordinates": {"latitude": 12.6072, "longitude": 37.4664}
         },
         {
@@ -93,6 +109,9 @@ def insert_sample_sites(database: Database):
             "historical_significance": "Key site for understanding human evolution, contains fossils dating back 4 million years",
             "visiting_hours": "8:00 AM - 5:00 PM",
             "entry_fee": 20.0,
+            "images": [
+                "https://images.unsplash.com/photo-1523438097201-512ae7d59c44?auto=format&fit=crop&w=1200&q=80"
+            ],
             "coordinates": {"latitude": 11.1333, "longitude": 40.5833}
         }
     ]

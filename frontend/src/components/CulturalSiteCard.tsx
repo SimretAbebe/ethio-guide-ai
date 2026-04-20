@@ -1,5 +1,6 @@
 import { MapPin } from "lucide-react";
 import { useState } from "react";
+import { getBaseUrl } from "../utils/api";
 
 interface CulturalSiteCardProps {
   title: string;
@@ -18,10 +19,10 @@ export default function CulturalSiteCard({
 }: CulturalSiteCardProps) {
   const [isFavoriting, setIsFavoriting] = useState(false);
 
-  const handleAddToFavorites = async () => {
     try {
       setIsFavoriting(true);
-      const response = await fetch("http://127.0.0.1:8001/favorites", {
+      const baseUrl = getBaseUrl();
+      const response = await fetch(`${baseUrl}/favorites`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import EthiopiaMap from "../components/EthiopiaMap";
 import SearchBar from "../components/SearchBar";
+import { getBaseUrl } from "../utils/api";
 
 interface CulturalSite {
   name: string;
@@ -31,7 +32,8 @@ export default function MapPage() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch("http://127.0.0.1:8001/sites");
+        const baseUrl = getBaseUrl();
+        const response = await fetch(`${baseUrl}/sites`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getBaseUrl } from "../utils/api";
 
 interface Review {
   user_name: string;
@@ -31,7 +32,8 @@ export default function Reviews({ siteName, reviews, averageRating, onReviewAdde
     try {
       setIsSubmitting(true);
       setErrorMessage("");
-      const response = await fetch(`http://127.0.0.1:8001/sites/${siteName}/reviews`, {
+      const baseUrl = getBaseUrl();
+      const response = await fetch(`${baseUrl}/sites/${siteName}/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_name: userName, rating, comment }),

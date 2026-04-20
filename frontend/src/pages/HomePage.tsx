@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import CulturalSiteCard from "../components/CulturalSiteCard";
 import SearchBar from "../components/SearchBar";
 import Recommendations from "../components/Recommendations";
+import { getBaseUrl } from "../utils/api";
 
 interface CulturalSite {
   name: string;
@@ -35,7 +36,7 @@ export default function HomePage() {
       if (region) params.append("region", region);
       if (sortBy) params.append("sort_by", sortBy);
 
-      const baseUrl = (import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001").replace(/\/+$/, "");
+      const baseUrl = getBaseUrl();
       const url = `${baseUrl}/sites${params.toString() ? `?${params.toString()}` : ""}`;
       const response = await fetch(url);
 
@@ -135,7 +136,7 @@ export default function HomePage() {
                 image={
                   site.images && site.images.length > 0
                     ? site.images[0]
-                    : `https://source.unsplash.com/800x600/?${encodeURIComponent(site.name + ' ' + site.category)}`
+                    : `https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?auto=format&fit=crop&w=800&q=60`
                 }
                 description={site.description}
                 location={site.location}

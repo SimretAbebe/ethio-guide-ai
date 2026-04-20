@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import CulturalSiteCard from "../components/CulturalSiteCard";
+import { getBaseUrl } from "../utils/api";
 
 interface CulturalSite {
   name: string;
@@ -27,7 +28,8 @@ export default function FavoritesPage() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("http://127.0.0.1:8001/favorites");
+      const baseUrl = getBaseUrl();
+      const response = await fetch(`${baseUrl}/favorites`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -49,8 +51,9 @@ export default function FavoritesPage() {
 
   const handleRemoveFavorite = async (siteName: string) => {
     try {
+      const baseUrl = getBaseUrl();
       const response = await fetch(
-        `http://127.0.0.1:8001/favorites/${encodeURIComponent(siteName)}`,
+        `${baseUrl}/favorites/${encodeURIComponent(siteName)}`,
         {
           method: "DELETE",
         }
@@ -151,7 +154,7 @@ export default function FavoritesPage() {
                     image={
                       site.images && site.images.length > 0
                         ? site.images[0]
-                        : `https://source.unsplash.com/800x600/?${encodeURIComponent(site.name + " " + site.category)}`
+                        : `https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=60`
                     }
                     description={site.description}
                     location={site.location}

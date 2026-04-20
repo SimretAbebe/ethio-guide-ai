@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import CulturalSiteCard from "./CulturalSiteCard";
 import { Sparkles } from "lucide-react";
+import { getBaseUrl } from "../utils/api";
 
 interface RecommendedSite {
   name: string;
@@ -19,7 +19,8 @@ export default function Recommendations() {
     const fetchRecommendations = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://127.0.0.1:8001/recommendations");
+        const baseUrl = getBaseUrl();
+        const response = await fetch(`${baseUrl}/recommendations`);
         if (!response.ok) {
           throw new Error("Failed to fetch recommendations");
         }

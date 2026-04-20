@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ImageGallery from "../components/ImageGallery";
 import Reviews from "../components/Reviews";
+import { getBaseUrl } from "../utils/api";
 
 interface Review {
   user_name: string;
@@ -31,10 +32,9 @@ export default function SiteDetailsPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchSite = async () => {
       try {
         setLoading(true);
-        const baseUrl = (import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001").replace(/\/+$/, "");
+        const baseUrl = getBaseUrl();
         const response = await fetch(`${baseUrl}/sites/${name}`);
         if (!response.ok) throw new Error("Site not found");
         const data = await response.json();
