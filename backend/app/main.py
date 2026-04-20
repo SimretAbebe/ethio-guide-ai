@@ -12,13 +12,11 @@ app = FastAPI(
 )
 
 # CORS configuration
-allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
-allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",")]
+allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "*")
+allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",") if origin.strip()]
 
-# If you want to allow all vercel preview deployments, you can add "*" to allow all
-# but it's safer to explicitly list them or use a middleware check.
-# For simplicity, we'll allow "*" if the user explicitly sets it in ALLOWED_ORIGINS
-if "*" in allowed_origins:
+# If "*" is in the list, or if we're not in production, allow all origins for easier debugging
+if "*" in allowed_origins or os.getenv("ENVIRONMENT", "development") != "production":
     allowed_origins = ["*"]
 
 print(f"CORS: Allowing origins: {allowed_origins}")

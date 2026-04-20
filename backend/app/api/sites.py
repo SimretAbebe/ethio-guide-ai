@@ -59,6 +59,7 @@ async def get_all_sites(
         return sites
 
     except Exception as e:
+        print(f"CRITICAL ERROR in get_all_sites: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch sites: {str(e)}")
 
 @router.get("/sites/{site_name}", response_model=CulturalSite)
@@ -81,6 +82,7 @@ async def get_site_by_name(site_name: str):
     except HTTPException:
         raise
     except Exception as e:
+        print(f"CRITICAL ERROR in get_site_by_name: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch site: {str(e)}")
 
 @router.get("/favorites", response_model=List[Dict[str, Any]])

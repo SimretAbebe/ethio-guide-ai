@@ -16,7 +16,7 @@ services:
       - key: GOOGLE_API_KEY
         sync: false # Set this in the Render dashboard
       - key: ALLOWED_ORIGINS
-        value: http://localhost:5173 # Change this to your frontend URL after deployment
+        value: "*" # Set to "*" to troubleshoot CORS issues; restrict to your Vercel URL later
 
   # Frontend Vite Service (Optional, can also use static site)
   - type: web

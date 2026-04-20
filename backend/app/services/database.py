@@ -24,16 +24,22 @@ class DatabaseConnection:
                 raise ValueError("DATABASE_NAME environment variable is not set")
 
             try:
-                print(f"Attempting to connect to MongoDB: {mongodb_uri[:20]}...")
+                # Mask URI for security but show some part of it to verify it's the right one
+                masked_uri = mongodb_uri.split("@")[-1] if "@" in mongodb_uri else "HIDDEN"
+                print(f"Attempting to connect to MongoDB cluster: {masked_uri}...")
+                
                 self.client = MongoClient(mongodb_uri, serverSelectionTimeoutMS=5000)
                 self.database = self.client[database_name]
+                
                 # Test the connection
-                print("Pinging MongoDB...")
+                print(f"Pinging MongoDB database '{database_name}'...")
                 self.client.admin.command('ping')
-                print("Successfully connected to MongoDB Atlas")
+                print("Successfully connected to MongoDB Atlas!")
             except Exception as e:
-                print(f"DATABASE CONNECTION ERROR: {str(e)}")
-                raise ConnectionError(f"Failed to connect to MongoDB: {str(e)}")
+                error_msg = f"DATABASE CONNECTION ERROR: {str(e)}"
+                print(error_msg)
+                # Re-raise with full message
+                raise ConnectionError(error_msg)
 
         return self.database
 
